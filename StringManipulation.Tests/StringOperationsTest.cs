@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Moq;
+using Microsoft.Extensions.Logging;
 
 namespace StringManipulation.Tests
 {
@@ -84,6 +86,17 @@ namespace StringManipulation.Tests
             var result = strOperations.FromRomanToNumber(romanNumber);
 
             Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void CountOccurrences()
+        {
+            var mockLogger = new Mock<ILogger<StringOperations>>();
+            var strOperations = new StringOperations(mockLogger.Object);
+
+            var result = strOperations.CountOccurrences("Hello platzi", 'l');
+
+            Assert.Equal(3, result);
         }
     }
 }
